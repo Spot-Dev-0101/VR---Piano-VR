@@ -14,20 +14,23 @@ public class HandController : MonoBehaviour
 
     private float timer = 0;
 
+    private SkinnedMeshRenderer handMeshRender;
+
     // Start is called before the first frame update
     void Start()
     {
+        handMeshRender = handPrefab.GetComponent<SkinnedMeshRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
         Vector3 editorRoation = UnityEditor.TransformUtils.GetInspectorRotation(transform);
-        if (gm.hasSurface == false)
+        if (gm.hasSurface == false && handMeshRender.enabled)
         {
             if (editorRoation.x < downDeadZone && editorRoation.x > -downDeadZone && editorRoation.z < downDeadZone && editorRoation.z > -downDeadZone)
             {
-                print("Down");
+                //print("Down");
                 handPrefab.GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
                 timer += Time.deltaTime;
                 if (timer >= timeHandNeedsToBeDown)
@@ -38,7 +41,7 @@ public class HandController : MonoBehaviour
             }
             else
             {
-                print("Up");
+                //print("Up");
                 handPrefab.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
                 timer = 0;
             }
