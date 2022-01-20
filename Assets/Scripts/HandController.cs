@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class HandController : MonoBehaviour
 {
     public GameManager gm;
@@ -25,30 +26,32 @@ public class HandController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 editorRoation = UnityEditor.TransformUtils.GetInspectorRotation(transform);
-        if (gm.hasSurface == false && handMeshRender.enabled)
+        if (gm.startMenu.active)
         {
-            if (editorRoation.x < downDeadZone && editorRoation.x > -downDeadZone && editorRoation.z < downDeadZone && editorRoation.z > -downDeadZone)
+            Vector3 rotation = transform.localRotation.eulerAngles;//UnityEditor.TransformUtils.GetInspectorRotation(transform);
+            if (gm.hasSurface == false && handMeshRender.enabled)
             {
-                //print("Down");
-                handPrefab.GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
-                timer += Time.deltaTime;
-                if (timer >= timeHandNeedsToBeDown)
+                if (rotation.x < downDeadZone && rotation.x > -downDeadZone && rotation.z < downDeadZone && rotation.z > -downDeadZone)
                 {
-                    gm.hasSurface = true;
-                    gm.spawnPiano(transform.position, new Vector3(0, 0, 0));
+                    //print("Down");
+                    handPrefab.GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
+                    timer += Time.deltaTime;
+                    if (timer >= timeHandNeedsToBeDown)
+                    {
+                        gm.hasSurface = true;
+                        gm.spawnPiano(new Vector3(transform.position.x, transform.position.y - 0f, transform.position.z), new Vector3(0, 0, 0));
+                    }
+                }
+                else
+                {
+                    //print("Up");
+                    handPrefab.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+                    timer = 0;
                 }
             }
-            else
-            {
-                //print("Up");
-                handPrefab.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
-                timer = 0;
-            }
-        } else
+        } else if (gm.startMenuInstructions.active)
         {
             handPrefab.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
         }
-        
     }
 }
