@@ -33,18 +33,15 @@ public class HandController : MonoBehaviour
             {
                 if (rotation.x < downDeadZone && rotation.x > -downDeadZone && rotation.z < downDeadZone && rotation.z > -downDeadZone)
                 {
-                    //print("Down");
                     handPrefab.GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
                     timer += Time.deltaTime;
                     if (timer >= timeHandNeedsToBeDown)
                     {
-                        gm.hasSurface = true;
                         gm.spawnPiano(new Vector3(transform.position.x, transform.position.y - 0f, transform.position.z), new Vector3(0, 0, 0));
                     }
                 }
                 else
                 {
-                    //print("Up");
                     handPrefab.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
                     timer = 0;
                 }

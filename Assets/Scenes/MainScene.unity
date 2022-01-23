@@ -3216,7 +3216,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Piano
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4747261626984670660, guid: 7603b1345456d804393f62ab93589ede, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7603b1345456d804393f62ab93589ede, type: 3}
 --- !u!1001 &6730173972837009232
 PrefabInstance:

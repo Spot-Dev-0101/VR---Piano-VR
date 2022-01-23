@@ -195,6 +195,9 @@ public class GameManager : MonoBehaviour
         {
             playingSong = true;
         }
+
+        hasSurface = true;
+
     }
 
     public void startFreePlay(InteractableStateArgs obj)
